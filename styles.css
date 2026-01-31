@@ -1,38 +1,13 @@
-:root {
-    --nayo-green: #15803d;
-    --nayo-blue: #1e3a8a;
+body { perspective: 1200px; font-family: 'Inter', sans-serif; }
+.card-3d { 
+    background: white; 
+    border-radius: 24px; 
+    border: 1px solid #e2e8f0; 
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+    transform-style: preserve-3d; 
 }
-
-body {
-    perspective: 1200px; /* Vital for 3D depth */
-    font-family: 'Inter', system-ui, sans-serif;
+.card-3d:hover { 
+    transform: rotateY(10deg) rotateX(5deg) translateY(-10px); 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.05); 
 }
-
-.card-3d {
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease;
-    transform-style: preserve-3d;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 24px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-}
-
-.card-3d:hover {
-    transform: rotateY(12deg) rotateX(6deg) translateY(-15px);
-    box-shadow: 0 25px 55px rgba(0,0,0,0.1);
-}
-
-.btn-nayo {
-    background-color: var(--nayo-green);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 10px 24px;
-    font-weight: 700;
-    transition: 0.3s;
-}
-
-.btn-nayo:hover {
-    transform: translateZ(20px);
-    filter: brightness(1.1);
-}
+.navbar-brand img { height: 45px; }
