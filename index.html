@@ -3,59 +3,906 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nayo Bag | Homegrown & Earth-First Ethiopia</title>
-    <meta name="description" content="Leading Ethiopia's move away from plastic. Discover our 90-day bio-cycle bags, proudly made in Addis Ababa.">
-    <link rel="icon" type="image/png" href="icon.png">
-    <meta property="og:title" content="Nayo Bag: The Earth-First Choice">
-    <meta property="og:description" content="Sustainable, 100% Ethiopian-owned solution for a cleaner future.">
-    <meta property="og:image" content="logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Nayo Bag - Ethiopia's leading industrial eco-bag manufacturer. Premium non-woven bags, 40-70 GSM, custom branding available.">
+    <meta name="keywords" content="nayo bag, ethiopia, eco bags, non-woven bags, reusable bags, plastic ban, sustainable packaging">
+    <title>Nayo Bag - Ethiopia's Leading Industrial Eco-Bag Manufacturer</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Fabric Texture Background */
+        .fabric-texture {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .fabric-texture::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(46, 125, 50, 0.02) 2px, rgba(46, 125, 50, 0.02) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(46, 125, 50, 0.02) 2px, rgba(46, 125, 50, 0.02) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Priority Banner */
+        .priority-banner {
+            background: linear-gradient(135deg, #1b5e20 0%, #2E7D32 100%);
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(46, 125, 50, 0.3);
+            animation: slideDown 0.6s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .priority-banner p {
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 52px;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Floating Quick Connect */
+        .quick-connect {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .quick-connect-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid white;
+        }
+        
+        .quick-connect-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .quick-connect-btn.telegram {
+            background: linear-gradient(135deg, #0088cc, #0066aa);
+        }
+        
+        .quick-connect-btn.phone {
+            background: linear-gradient(135deg, #2E7D32, #1b5e20);
+        }
+        
+        /* Priority Partner Badge */
+        .priority-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1a1a1a;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+            }
+        }
+        
+        /* Product Grid Enhancement */
+        .product-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #2E7D32;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #2E7D32;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+        
+        /* Technical Specifications */
+        .tech-spec {
+            background: #f9fafb;
+            border-left: 4px solid #2E7D32;
+            padding: 1rem 1.5rem;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .tech-spec strong {
+            color: #2E7D32;
+            font-weight: 600;
+        }
+        
+        /* Dual Location Map Section */
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .location-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #2E7D32, #1b5e20);
+        }
+        
+        .location-card:hover {
+            border-color: #2E7D32;
+            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.15);
+            transform: translateY(-4px);
+        }
+        
+        .location-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2E7D32, #1b5e20);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 24px;
+        }
+        
+        /* Bulk Quote Generator Styles */
+        .quote-generator {
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+            border: 2px solid #2E7D32;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #2E7D32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #2E7D32, #1b5e20);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+        }
+        
+        .result-card {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: white;
+            border: 3px solid #2E7D32;
+            border-radius: 16px;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .price-display {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #2E7D32;
+            font-family: 'Space Grotesk', sans-serif;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .priority-banner p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+            
+            .quote-generator {
+                padding: 2rem 1.5rem;
+            }
+            
+            .quick-connect {
+                bottom: 80px;
+                right: 15px;
+            }
+            
+            .quick-connect-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 24px;
+            }
+            
+            .price-display {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Additional utility classes */
+        .section-padding {
+            padding: 5rem 2rem;
+        }
+        
+        .container-max {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2E7D32, #1b5e20);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-4 shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="index.html"><img src="logo.png" height="45"></a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-4 align-items-center">
-                    <li><a class="nav-link fw-bold" href="index.html">Home</a></li>
-                    <li><a class="nav-link fw-bold" href="product.html">Our Collection</a></li>
-                    <li><a class="nav-link fw-bold" href="offers.html">Deals</a></li>
-                    <li><button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#loginModal">My Profile</button></li>
-                </ul>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Priority Banner Component
+        const PriorityBanner = () => (
+            <div className="priority-banner">
+                <p>🌍 100% Recyclable Solutions for Ethiopia's Plastic Ban | Supporting National Sustainability 🇪🇹</p>
             </div>
-        </div>
-    </nav>
+        );
 
-    <header class="py-5 text-center">
-        <div class="container py-5">
-            <img src="no_plastic.png" class="h-48 mb-4">
-            <h1 class="display-3 fw-bold text-success mb-4">Naturally <span class="text-dark">Better.</span></h1>
-            <p class="lead mb-5 text-muted">Simple Engineering PLC: Made locally with a commitment to quality and our community.</p>
-            <div class="row g-4">
-                <div class="col-md-6"><div class="card-3d p-5"><h3>Earth-First</h3><p>Returns to nature in 90 days outdoors.</p></div></div>
-                <div class="col-md-6"><div class="card-3d p-5"><h3>Homegrown</h3><p>Proudly made in Ethiopia since 2021.</p></div></div>
+        // Header Component
+        const Header = () => (
+            <header className="header">
+                <div className="container-max px-8 py-4 flex justify-between items-center">
+                    <div className="flex items-center gap-4">
+                        <img src="images/logo.png" alt="Nayo Bag" className="h-12" />
+                    </div>
+                    <nav className="hidden md:flex gap-8 items-center">
+                        <a href="#products" className="font-semibold text-gray-700 hover:text-green-700 transition">Products</a>
+                        <a href="#quote" className="font-semibold text-gray-700 hover:text-green-700 transition">Bulk Quote</a>
+                        <a href="#locations" className="font-semibold text-gray-700 hover:text-green-700 transition">Locations</a>
+                        <button className="btn-primary text-sm" onClick={() => window.location.href='tel:+251996363636'}>
+                            Request Quote
+                        </button>
+                    </nav>
+                </div>
+            </header>
+        );
+
+        // Quick Connect Floating Buttons
+        const QuickConnect = () => (
+            <div className="quick-connect">
+                <button 
+                    className="quick-connect-btn telegram"
+                    onClick={() => window.open('https://t.me/nayobag', '_blank')}
+                    title="Chat on Telegram"
+                >
+                    ✈️
+                </button>
+                <button 
+                    className="quick-connect-btn phone"
+                    onClick={() => window.location.href='tel:+251996363636'}
+                    title="Call Us Now"
+                >
+                    📞
+                </button>
             </div>
-        </div>
-    </header>
+        );
 
-    <footer class="py-5 bg-white border-top mt-5">
-        <div class="container text-center text-muted">
-            <p class="fw-bold text-dark">Simple Engineering PLC</p>
-            <p>Office: Megenagna Grace City Mall, 2nd floor, office #20</p>
-            <p>Workshop: Goro (In front of St. Gebriel Church)</p>
-        </div>
-    </footer>
+        // Hero Section
+        const Hero = () => (
+            <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+                <img 
+                    src="images/bulk_offer.jpeg" 
+                    alt="Nayo Bag Collection" 
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{filter: 'brightness(0.6)'}}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-green-900/70 to-black/50"></div>
+                <div className="relative z-10 text-center text-white px-4 max-w-4xl">
+                    <h1 className="heading-font text-5xl md:text-7xl font-900 mb-6 leading-tight">
+                        Ethiopia's Leading<br/>Industrial Eco-Bag<br/>Manufacturer
+                    </h1>
+                    <p className="text-xl md:text-2xl mb-8 font-light">
+                        Premium Non-Woven Solutions | 40GSM to 70GSM | Custom Branding Available
+                    </p>
+                    <button 
+                        className="btn-primary text-lg px-8 py-4"
+                        onClick={() => document.getElementById('quote').scrollIntoView({behavior: 'smooth'})}
+                    >
+                        Get Bulk Pricing
+                    </button>
+                </div>
+            </section>
+        );
 
-    <div class="modal fade" id="loginModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered"><div class="modal-content p-5 border-0 rounded-4">
-            <h3 class="fw-bold mb-4 text-center">Partner Portal</h3>
-            <input type="email" class="form-control mb-3 p-3" placeholder="Email Address">
-            <input type="password" class="form-control mb-4 p-3" placeholder="Access Key">
-            <button class="btn btn-success w-100 p-3 rounded-pill">Sign In</button>
-        </div></div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+        // Product Catalog Component
+        const ProductCatalog = () => {
+            const products = [
+                {
+                    name: "Box Bags (Premium Retail)",
+                    image: "images/black_tote_png.png",
+                    badge: "Premium",
+                    specs: ["50-70 GSM", "Reinforced Handles", "Custom Printing", "Ideal for High-End Retail"],
+                    description: "Professional square-bottom bags with superior load capacity. Perfect for boutique stores, gift shops, and premium retail operations."
+                },
+                {
+                    name: "T-shirt Bags (Daily Grocery)",
+                    image: "images/brown_vest_png.png",
+                    badge: "Best Seller",
+                    specs: ["40-60 GSM", "Vest-Style Handles", "High Volume Available", "Quick Turnaround"],
+                    description: "Classic T-shirt style bags ideal for supermarkets, grocery stores, and convenience shops. Cost-effective and durable."
+                },
+                {
+                    name: "D-cut Bags (Event & Branding)",
+                    image: "images/blue_tote_png.png",
+                    badge: "Popular",
+                    specs: ["50-60 GSM", "D-Cut Handles", "Full-Color Printing", "Event Ready"],
+                    description: "Versatile bags with comfortable D-cut handles. Perfect for promotional events, trade shows, and brand campaigns."
+                }
+            ];
+
+            return (
+                <section id="products" className="section-padding fabric-texture bg-gray-50">
+                    <div className="container-max relative z-10">
+                        <h2 className="section-title">Technical Product Catalog</h2>
+                        <p className="section-subtitle">
+                            Industrial-grade non-woven bags engineered for Ethiopian market demands
+                        </p>
+
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {products.map((product, index) => (
+                                <div key={index} className="product-card">
+                                    <div className="product-badge">{product.badge}</div>
+                                    <div className="bg-white h-80 flex items-center justify-center p-8">
+                                        <img 
+                                            src={product.image} 
+                                            alt={product.name}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </div>
+                                    <div className="p-6">
+                                        <h3 className="heading-font text-2xl font-bold mb-3">{product.name}</h3>
+                                        <p className="text-gray-600 mb-4 leading-relaxed">{product.description}</p>
+                                        <div className="space-y-2">
+                                            {product.specs.map((spec, i) => (
+                                                <div key={i} className="tech-spec">
+                                                    <strong>✓</strong> {spec}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Bulk Quote Generator Component
+        const BulkQuoteGenerator = () => {
+            const [formData, setFormData] = useState({
+                gsm: '60',
+                width: '30',
+                height: '40',
+                gusset: '10',
+                quantity: '1000'
+            });
+            const [result, setResult] = useState(null);
+            const [showResult, setShowResult] = useState(false);
+
+            const handleChange = (e) => {
+                setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value
+                });
+            };
+
+            const calculatePrice = () => {
+                const gsm = parseInt(formData.gsm);
+                const width = parseFloat(formData.width);
+                const height = parseFloat(formData.height);
+                const gusset = parseFloat(formData.gusset);
+                const quantity = parseInt(formData.quantity);
+
+                if (!width || !height || !gusset || !quantity || quantity < 1000) {
+                    alert('Please fill all fields correctly. Minimum order: 1,000 bags');
+                    return;
+                }
+
+                // Pricing algorithm
+                const bagArea = (width * height + gusset * height * 2) / 10000;
+                const materialCost = bagArea * gsm * 0.08;
+                const productionCost = 0.65;
+                const basePricePerBag = materialCost + productionCost;
+                const baseTotal = basePricePerBag * quantity;
+
+                let finalPrice = baseTotal;
+                let isPriorityPartner = false;
+                let discountAmount = 0;
+
+                if (quantity >= 5000) {
+                    isPriorityPartner = true;
+                    discountAmount = baseTotal * 0.15;
+                    finalPrice = baseTotal - discountAmount;
+                }
+
+                setResult({
+                    finalPrice,
+                    basePrice: baseTotal,
+                    isPriorityPartner,
+                    discountAmount,
+                    quantity
+                });
+                setShowResult(true);
+            };
+
+            return (
+                <section id="quote" className="section-padding bg-white">
+                    <div className="container-max">
+                        <h2 className="section-title">Bulk Quote Generator</h2>
+                        <p className="section-subtitle">
+                            Get instant pricing for your order. Orders 5,000+ bags unlock Priority Partner status with 15% discount
+                        </p>
+
+                        <div className="quote-generator">
+                            <h3 className="heading-font text-2xl font-bold mb-6 text-center">
+                                Configure Your Order
+                            </h3>
+
+                            <div className="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label className="block font-semibold mb-2 text-sm uppercase tracking-wide text-gray-700">
+                                        Material Strength (GSM)
+                                    </label>
+                                    <select 
+                                        name="gsm"
+                                        value={formData.gsm}
+                                        onChange={handleChange}
+                                        className="form-select"
+                                    >
+                                        <option value="40">40 GSM - Light Duty</option>
+                                        <option value="50">50 GSM - Standard</option>
+                                        <option value="60">60 GSM - Heavy Duty (Recommended)</option>
+                                        <option value="70">70 GSM - Premium Industrial</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block font-semibold mb-2 text-sm uppercase tracking-wide text-gray-700">
+                                        Quantity (Minimum 1,000)
+                                    </label>
+                                    <input 
+                                        type="number"
+                                        name="quantity"
+                                        value={formData.quantity}
+                                        onChange={handleChange}
+                                        min="1000"
+                                        step="100"
+                                        className="form-input"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block font-semibold mb-2 text-sm uppercase tracking-wide text-gray-700">
+                                        Width (cm)
+                                    </label>
+                                    <input 
+                                        type="number"
+                                        name="width"
+                                        value={formData.width}
+                                        onChange={handleChange}
+                                        min="10"
+                                        max="100"
+                                        className="form-input"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block font-semibold mb-2 text-sm uppercase tracking-wide text-gray-700">
+                                        Height (cm)
+                                    </label>
+                                    <input 
+                                        type="number"
+                                        name="height"
+                                        value={formData.height}
+                                        onChange={handleChange}
+                                        min="10"
+                                        max="100"
+                                        className="form-input"
+                                    />
+                                </div>
+
+                                <div className="md:col-span-2">
+                                    <label className="block font-semibold mb-2 text-sm uppercase tracking-wide text-gray-700">
+                                        Gusset/Depth (cm)
+                                    </label>
+                                    <input 
+                                        type="number"
+                                        name="gusset"
+                                        value={formData.gusset}
+                                        onChange={handleChange}
+                                        min="0"
+                                        max="50"
+                                        className="form-input"
+                                    />
+                                </div>
+                            </div>
+
+                            <button className="calculate-btn" onClick={calculatePrice}>
+                                Calculate Price
+                            </button>
+
+                            {showResult && result && (
+                                <div className="result-card">
+                                    {result.isPriorityPartner && (
+                                        <div className="text-center mb-6">
+                                            <span className="priority-badge">
+                                                ⭐ Nayo Priority Partner Status Activated
+                                            </span>
+                                            <p className="mt-3 text-green-700 font-semibold">
+                                                You saved ETB {result.discountAmount.toLocaleString('en-US', {minimumFractionDigits: 2})} with bulk discount!
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {!result.isPriorityPartner && (
+                                        <div className="text-center mb-4 p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg">
+                                            <p className="font-semibold text-gray-800">
+                                                💡 Order {(5000 - result.quantity).toLocaleString()} more bags to unlock Priority Partner status and save 15%!
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    <div className="text-center">
+                                        <p className="text-gray-600 text-lg mb-2">Estimated Total Price</p>
+                                        <div className="price-display">
+                                            ETB {result.finalPrice.toLocaleString('en-US', {minimumFractionDigits: 2})}
+                                        </div>
+                                        <p className="text-sm text-gray-500 mt-4 italic">
+                                            * Final pricing subject to custom printing specifications. Contact sales for detailed quote.
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-6 text-center">
+                                        <button 
+                                            className="btn-primary"
+                                            onClick={() => window.location.href='tel:+251996363636'}
+                                        >
+                                            Contact Sales: +251 99 636 3636
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Dual Location Section
+        const Locations = () => {
+            const locations = [
+                {
+                    type: "Sales Office",
+                    icon: "🏢",
+                    name: "Megenagna Grace City Mall",
+                    address: "2nd Floor, Shop #206",
+                    city: "Addis Ababa, Ethiopia",
+                    phone: "+251 99 636 3636",
+                    hours: "Mon-Sat: 8:00 AM - 6:00 PM",
+                    description: "Visit our showroom for product samples, consultations, and bulk order discussions.",
+                    mapQuery: "Megenagna Grace City Mall, 2nd Floor, Addis Ababa"
+                },
+                {
+                    type: "Production Workshop",
+                    icon: "🏭",
+                    name: "Goro Manufacturing Facility",
+                    address: "Opposite St. Gebriel Church",
+                    city: "Goro, Addis Ababa",
+                    phone: "+251 99 636 3636",
+                    hours: "Mon-Fri: 7:00 AM - 5:00 PM",
+                    description: "Our state-of-the-art production facility with capacity for 500K+ bags monthly.",
+                    mapQuery: "Goro, Opposite St. Gebriel Church, Addis Ababa"
+                }
+            ];
+
+            return (
+                <section id="locations" className="section-padding fabric-texture bg-gray-50">
+                    <div className="container-max relative z-10">
+                        <h2 className="section-title">Our Locations</h2>
+                        <p className="section-subtitle">
+                            Two strategic locations serving all of Ethiopia - Sales office in Megenagna, Production facility in Goro
+                        </p>
+
+                        <div className="location-grid">
+                            {locations.map((location, index) => (
+                                <div key={index} className="location-card">
+                                    <div className="location-icon">
+                                        <span>{location.icon}</span>
+                                    </div>
+                                    <div className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold mb-3">
+                                        {location.type}
+                                    </div>
+                                    <h3 className="heading-font text-2xl font-bold mb-2">{location.name}</h3>
+                                    <p className="text-gray-600 mb-4">{location.description}</p>
+                                    
+                                    <div className="space-y-3 mb-4">
+                                        <div className="flex items-start gap-3">
+                                            <span className="text-xl">📍</span>
+                                            <div>
+                                                <p className="font-semibold">{location.address}</p>
+                                                <p className="text-gray-600">{location.city}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-xl">📞</span>
+                                            <a href={`tel:${location.phone}`} className="font-semibold text-green-700 hover:underline">
+                                                {location.phone}
+                                            </a>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-xl">🕒</span>
+                                            <p className="text-gray-600">{location.hours}</p>
+                                        </div>
+                                    </div>
+
+                                    <button 
+                                        className="btn-primary w-full text-sm"
+                                        onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.mapQuery)}`, '_blank')}
+                                    >
+                                        View on Google Maps
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Footer Component
+        const Footer = () => (
+            <footer className="bg-gray-900 text-white section-padding">
+                <div className="container-max">
+                    <div className="grid md:grid-cols-4 gap-8 mb-8">
+                        <div>
+                            <img src="images/icon.png" alt="Nayo Bag" className="h-12 mb-4 brightness-0 invert" />
+                            <p className="text-gray-400 leading-relaxed">
+                                Ethiopia's leading industrial eco-bag manufacturer. Supporting national sustainability through quality non-woven solutions.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-lg mb-4">Sales Office</h4>
+                            <p className="text-gray-400 mb-2">Megenagna Grace City Mall</p>
+                            <p className="text-gray-400 mb-2">2nd Floor, Shop #206</p>
+                            <p className="text-gray-400">Addis Ababa, Ethiopia</p>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-lg mb-4">Production</h4>
+                            <p className="text-gray-400 mb-2">Goro Workshop</p>
+                            <p className="text-gray-400 mb-2">Opposite St. Gebriel Church</p>
+                            <p className="text-gray-400">Addis Ababa, Ethiopia</p>
+                        </div>
+
+                        <div>
+                            <h4 className="font-bold text-lg mb-4">Contact</h4>
+                            <p className="text-gray-400 mb-3">
+                                📞 <a href="tel:+251996363636" className="hover:text-green-400 transition">+251 99 636 3636</a>
+                            </p>
+                            <p className="text-gray-400 mb-3">
+                                ✈️ <a href="https://t.me/nayobag" target="_blank" className="hover:text-green-400 transition">@nayobag on Telegram</a>
+                            </p>
+                            <p className="text-gray-400">Mon-Sat: 8:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div className="border-t border-gray-700 pt-6 text-center text-gray-400">
+                        <p>&copy; 2026 Nayo Bag. Ethiopia's Leading Industrial Eco-Bag Manufacturer.</p>
+                        <p className="mt-2 text-sm">Supporting Ethiopia's Plastic Ban | 100% Recyclable Solutions</p>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        // Main App Component
+        const App = () => {
+            return (
+                <>
+                    <PriorityBanner />
+                    <Header />
+                    <Hero />
+                    <ProductCatalog />
+                    <BulkQuoteGenerator />
+                    <Locations />
+                    <Footer />
+                    <QuickConnect />
+                </>
+            );
+        };
+
+        // Render App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
